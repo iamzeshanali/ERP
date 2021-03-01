@@ -56,6 +56,32 @@ class Customers extends Migration
             $table->index('customers_groups_id', 'IDX_62534E2133E48540');
         });
 
+        Schema::create('branches', function (Blueprint $table) {
+            $table->integer('id')->autoIncrement()->unsigned();
+            $table->integer('code');
+            $table->string('prefix', 255);
+            $table->text('description');
+            $table->boolean('in_active');
+
+        });
+
+        Schema::create('pipeline_metrics', function (Blueprint $table) {
+            $table->integer('id')->autoIncrement()->unsigned();
+            $table->integer('code');
+            $table->string('prefix', 255);
+            $table->text('description');
+            $table->boolean('in_active');
+
+        });
+
+        Schema::create('typeof_sales', function (Blueprint $table) {
+            $table->integer('id')->autoIncrement()->unsigned();
+            $table->integer('code');
+            $table->text('description');
+            $table->boolean('in_active');
+
+        });
+
         Schema::table('customers', function (Blueprint $table) {
             $table->foreign('sales_representative_id', 'fk_customers_sales_representative_id_sales_representatives')
                     ->references('id')
@@ -77,6 +103,9 @@ class Customers extends Migration
      */
     public function down()
     {
+        Schema::drop('typeof_sales');
+        Schema::drop('pipeline_metrics');
+        Schema::drop('branches');
         Schema::drop('customers');
         Schema::drop('customers_groups');
         Schema::drop('sales_representatives');

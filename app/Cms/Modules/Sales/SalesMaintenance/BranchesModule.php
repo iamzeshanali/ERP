@@ -2,12 +2,12 @@
 
 namespace App\Cms\Modules\Sales\SalesMaintenance;
 
-use App\Domain\Services\Persistence\Sales\SalesMaintenance\IBranchesRepository;
 use Dms\Core\Auth\IAuthSystem;
 use Dms\Core\Common\Crud\CrudModule;
 use Dms\Core\Common\Crud\Definition\CrudModuleDefinition;
 use Dms\Core\Common\Crud\Definition\Form\CrudFormDefinition;
 use Dms\Core\Common\Crud\Definition\Table\SummaryTableDefinition;
+use App\Domain\Services\Persistence\Sales\SalesMaintenance\IBranchesRepository;
 use App\Domain\Entities\Sales\SalesMaintenance\Branches;
 use Dms\Common\Structure\Field;
 

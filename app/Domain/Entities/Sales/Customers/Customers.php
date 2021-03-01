@@ -8,7 +8,7 @@ use Dms\Core\Model\Object\ClassDefinition;
 use Dms\Core\Model\Object\Entity;
 use Dms\Core\Model\Object\InvalidPropertyDefinitionException;
 use Ramsey\Uuid\Type\Integer;
-
+u
 class Customers extends Entity
 {
     const NUMBER = 'number';

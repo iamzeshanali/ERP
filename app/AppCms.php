@@ -3,7 +3,10 @@
 namespace App;
 
 use App\Cms\CustomersPackage;
+use App\Cms\OutboundLogisticsPackage;
 use App\Cms\SalesPackage;
+use App\Cms\SalesTransactionPackage;
+use App\Cms\ShippingMaintenancePackage;
 use App\Cms\WarehousesPackage;
 use Dms\Core\Cms;
 use Dms\Core\CmsDefinition;
@@ -32,8 +35,11 @@ class AppCms extends Cms
 
            // TODO: Register your application cms packages...
             'Customers' => CustomersPackage::class,
-//            'Sales' => SalesPackage::class,
-                'Warehouses' => WarehousesPackage::class
+            'warehouses' => WarehousesPackage::class,
+            'Customers'=>CustomersPackage::class,
+            'SalesTransaction' => SalesTransactionPackage::class,
+            'ShippingMaintenance' => ShippingMaintenancePackage::class,
+            'OutboundLogistics' => OutboundLogisticsPackage::class
         ]);
     }
 }

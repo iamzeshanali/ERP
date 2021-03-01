@@ -13,7 +13,7 @@ use App\Cms\Modules\Sales\SalesMaintenance\PipelineMetricsModule;
 use App\Cms\Modules\Sales\SalesMaintenance\TypeofSalesModule;
 
 /**
- * The Warehouses package.
+ * The warehouses package.
  */
 class WarehousesPackage extends Package
 {
@@ -26,7 +26,7 @@ class WarehousesPackage extends Package
      */
     protected function define(PackageDefinition $package)
     {
-        $package->name('Warehouses');
+        $package->name('warehouses');
 
         $package->metadata([
             'icon' => '',

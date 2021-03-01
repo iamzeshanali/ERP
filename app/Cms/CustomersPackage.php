@@ -25,7 +25,7 @@ class CustomersPackage extends Package
         $package->name('Customers');
 
         $package->metadata([
-            'icon' => '',
+            'icon' => 'men',
         ]);
 
         $package->modules([
