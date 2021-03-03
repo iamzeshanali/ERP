@@ -2,33 +2,64 @@
 
 namespace App\Http\Controllers;
 
-use App\Domain\Services\Persistence\Sales\Customers\ICustomersRepository;
+use App\Domain\Services\Persistence\Sales\ICustomerRepository;
 use App\Http\Resources\Customers\CustomersResource;
 use Illuminate\Http\Request;
 
 class Customers extends Controller
 {
 
+
+
     /**
      * @var IBrandRepository
      */
-    public $customersRepository;
-    /**
+    public $customerRepository;
+    /**s
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
 
 //    myMethod(23,3.45,2.13)
-    public function __construct(ICustomersRepository $customersRepository)
+    public function __construct(ICustomerRepository $customerRepository)
     {
-        $this->customersRepository = $customersRepository;
+        $this->customerRepository = $customerRepository;
     }
 
     public function index()
     {
-       $customers = $this->customersRepository->getAll();
-        return json_encode($customers);
+       $customers = $this->customerRepository->getAll();
+
+        $formattedData = [];
+
+        foreach ($customers as $customer) {
+            $formattedData[] = [
+                'Name' => $customer->customerName,
+                'customerNumber' => $customer->customerNumber,
+                'customerStatus' => $customer->customerStatus->getValue(),
+                'email' => $customer->email->asString(),
+                'salesRepresentative' => $customer->salesRepresentative->name,
+                'addressLine1' => $customer->addressLine1,
+                'addressLine2' => $customer->addressLine2,
+                'state' => $customer->state,
+                'city' => $customer->city,
+                'zip' => $customer->zip,
+                'country' => $customer->country,
+                'isShippingSame' => $customer->isShippingSame,
+                'shippingAddressLine1' => $customer->shippingAddressLine1,
+                'shippingAddressLine2' => $customer->shippingAddressLine2,
+                'shippingState' => $customer->shippingState,
+                'shippingCity' => $customer->shippingCity,
+                'shippingZip' => $customer->shippingZip,
+                'shippingCountry' => $customer->shippingCountry,
+                'phone' => $customer->phone,
+                'bevLicenceNumber' => $customer->bevLicenceNumber,
+                'paymentTerms' => $customer->paymentTerms->code,
+                'numberOfPallets' => $customer->numberOfPallets
+            ];
+        }
+        return response()->json($formattedData);
     }
 
     /**

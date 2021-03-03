@@ -3,40 +3,44 @@
 namespace App;
 
 
-use App\Domain\Entities\Sales\Customers\Customers;
-use App\Domain\Entities\Sales\Customers\CustomersGroups;
-use App\Domain\Entities\Sales\Customers\SalesRepresentative;
-
-use App\Domain\Entities\Sales\SalesMaintenance\Branches;
-use App\Domain\Entities\Sales\SalesMaintenance\PipelineMetrics;
-use App\Domain\Entities\Sales\SalesMaintenance\TypeofSales;
-use App\Domain\Entities\Sales\SalesTransactions\Quotation;
-use App\Domain\Entities\Sales\SalesTransactions\SalesOrder;
-use App\Domain\Entities\Warehouses\OutboundLogistics\CustomerReturn;
-use App\Domain\Entities\Warehouses\OutboundLogistics\CustomerShipment;
-use App\Domain\Entities\Warehouses\OutboundLogistics\PickingWorkArea;
-use App\Domain\Entities\Warehouses\OutboundLogistics\SalesOrderFulfillment;
-use App\Domain\Entities\Warehouses\ShippingMaintenance\CarriersAccounts;
-use App\Domain\Entities\Warehouses\ShippingMaintenance\ShipmentList;
-use App\Domain\Entities\Warehouses\ShippingMaintenance\Shipments;
-use App\Domain\Entities\Warehouses\Warehouses;
-use App\Infrastructure\Persistence\Sales\Customers\CustomersGroupsMapper;
-use App\Infrastructure\Persistence\Sales\Customers\CustomersMapper;
-use App\Infrastructure\Persistence\Sales\Customers\SalesRepresentativeMapper;
-
-use App\Infrastructure\Persistence\Sales\SalesMaintenance\BranchesMapper;
-use App\Infrastructure\Persistence\Sales\SalesMaintenance\PipelineMetricsMapper;
-use App\Infrastructure\Persistence\Sales\SalesMaintenance\TypeofSalesMapper;
-use App\Infrastructure\Persistence\Sales\SalesTransactions\QuotationMapper;
-use App\Infrastructure\Persistence\Sales\SalesTransactions\SalesOrderMapper;
-use App\Infrastructure\Persistence\Warehouses\OutboundLogistics\CustomerReturnMapper;
-use App\Infrastructure\Persistence\Warehouses\OutboundLogistics\CustomerShipmentMapper;
-use App\Infrastructure\Persistence\Warehouses\OutboundLogistics\PickingWorkAreaMapper;
-use App\Infrastructure\Persistence\Warehouses\OutboundLogistics\SalesOrderFulfillmentMapper;
-use App\Infrastructure\Persistence\Warehouses\ShippingMaintenance\CarriersAccountsMapper;
-use App\Infrastructure\Persistence\Warehouses\ShippingMaintenance\ShipmentListMapper;
-use App\Infrastructure\Persistence\Warehouses\ShippingMaintenance\ShipmentsMapper;
-use App\Infrastructure\Persistence\Warehouses\WarehousesMapper;
+use App\Domain\Entities\Financial\PaymentTerms;
+use App\Domain\Entities\Financial\PurchaseOrder;
+use App\Domain\Entities\Financial\PurchaseOrderDetail;
+use App\Domain\Entities\Financial\PurchaseOrderReceiving;
+use App\Domain\Entities\Financial\Receipt;
+use App\Domain\Entities\Financial\SalesInvoice;
+use App\Domain\Entities\Financial\SalesInvoiceDetail;
+use App\Domain\Entities\Financial\TaxClass;
+use App\Domain\Entities\Inventory\CasePack;
+use App\Domain\Entities\Inventory\Family;
+use App\Domain\Entities\Inventory\Group;
+use App\Domain\Entities\Inventory\Uom;
+use App\Domain\Entities\Sales\Brands;
+use App\Domain\Entities\Sales\Customer;
+use App\Domain\Entities\Sales\PreferredVendor;
+use App\Domain\Entities\Sales\Product;
+use App\Domain\Entities\Sales\SalesRepresentative;
+use App\Domain\Entities\Warehouse\Shipments;
+use App\Domain\Entities\Warehouse\Warehouse;
+use App\Infrastructure\Persistence\Financial\PaymentTermsMapper;
+use App\Infrastructure\Persistence\Financial\PurchaseOrderDetailMapper;
+use App\Infrastructure\Persistence\Financial\PurchaseOrderMapper;
+use App\Infrastructure\Persistence\Financial\PurchaseOrderReceivingMapper;
+use App\Infrastructure\Persistence\Financial\ReceiptMapper;
+use App\Infrastructure\Persistence\Financial\SalesInvoiceDetailMapper;
+use App\Infrastructure\Persistence\Financial\SalesInvoiceMapper;
+use App\Infrastructure\Persistence\Financial\TaxClassMapper;
+use App\Infrastructure\Persistence\Inventory\CasePackMapper;
+use App\Infrastructure\Persistence\Inventory\FamilyMapper;
+use App\Infrastructure\Persistence\Inventory\GroupMapper;
+use App\Infrastructure\Persistence\Inventory\UomMapper;
+use App\Infrastructure\Persistence\Sales\BrandsMapper;
+use App\Infrastructure\Persistence\Sales\CustomerMapper;
+use App\Infrastructure\Persistence\Sales\PreferredVendorMapper;
+use App\Infrastructure\Persistence\Sales\ProductMapper;
+use App\Infrastructure\Persistence\Sales\SalesRepresentativeMapper;
+use App\Infrastructure\Persistence\Warehouse\ShipmentsMapper;
+use App\Infrastructure\Persistence\Warehouse\WarehouseMapper;
 use Dms\Core\Persistence\Db\Mapping\Definition\Orm\OrmDefinition;
 use Dms\Core\Persistence\Db\Mapping\Orm;
 use Dms\Web\Laravel\Persistence\Db\DmsOrm;
@@ -61,31 +65,35 @@ class AppOrm extends Orm
 
         // TODO: Register your mappers...
         $orm->entities([
-            /*Warehouses*/
-            Warehouses::class => WarehousesMapper::class,
-                /*Shipping Maintenance*/
-                Shipments::class => ShipmentsMapper::class,
-                CarriersAccounts::class => CarriersAccountsMapper::class,
-                ShipmentList::class => ShipmentListMapper::class,
-                /*Outbound Logistics*/
-                PickingWorkArea::class => PickingWorkAreaMapper::class,
-                CustomerShipment::class => CustomerShipmentMapper::class,
-                CustomerReturn::class => CustomerReturnMapper::class,
-                SalesOrderFulfillment::class => SalesOrderFulfillmentMapper::class,
+
+            /*FINANCIAL*/
+             PaymentTerms::class         => PaymentTermsMapper::class,
+             TaxClass::class             => TaxClassMapper::class,
+             PurchaseOrder::class => PurchaseOrderMapper::class,
+             PurchaseOrderDetail::class => PurchaseOrderDetailMapper::class,
+             PurchaseOrderReceiving::class => PurchaseOrderReceivingMapper::class,
+             Receipt::class => ReceiptMapper::class,
+             SalesInvoice::class => SalesInvoiceMapper::class,
+             SalesInvoiceDetail::class => SalesInvoiceDetailMapper::class,
+
+             /*SALES*/
+             SalesRepresentative::class  => SalesRepresentativeMapper::class,
+             Customer::class             => CustomerMapper::class,
+             Brands::class               => BrandsMapper::class,
+             PreferredVendor::class      => PreferredVendorMapper::class,
+             Product::class              => ProductMapper::class,
 
 
-            /*Sales*/
-                /*Customers*/
-                SalesRepresentative::class => SalesRepresentativeMapper::class,
-                CustomersGroups::class => CustomersGroupsMapper::class,
-                Customers::class => CustomersMapper::class,
-                /*SalesMaintenance*/
-                Branches::class => BranchesMapper::class,
-                PipelineMetrics::class => PipelineMetricsMapper::class,
-                TypeofSales::class => TypeofSalesMapper::class,
-                /*SalesTransactions*/
-                Quotation::class => QuotationMapper::class,
-                SalesOrder::class => SalesOrderMapper::class
+             /*INVENTORY*/
+             CasePack::class             => CasePackMapper::class,
+             Family::class               => FamilyMapper::class,
+             Group::class                => GroupMapper::class,
+             Uom::class                  => UomMapper::class,
+
+             /*WAREHOUSE*/
+             Shipments::class => ShipmentsMapper::class,
+             Warehouse::class => WarehouseMapper::class
+
 
         ]);
     }

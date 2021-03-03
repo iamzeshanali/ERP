@@ -4,38 +4,44 @@ namespace App\Providers;
 
 use App\AppCms;
 use App\AppOrm;
-use App\Domain\Services\Persistence\Sales\Customers\ICustomersGroupsRepository;
-use App\Domain\Services\Persistence\Sales\Customers\ICustomersRepository;
-use App\Domain\Services\Persistence\Sales\Customers\ISalesRepresentativeRepository;
-use App\Domain\Services\Persistence\Sales\SalesMaintenance\IBranchesRepository;
-use App\Domain\Services\Persistence\Sales\SalesMaintenance\IPipelineMetricsRepository;
-use App\Domain\Services\Persistence\Sales\SalesMaintenance\ITypeofSalesRepository;
-use App\Domain\Services\Persistence\Sales\SalesTransactions\IQuotationRepository;
-use App\Domain\Services\Persistence\Sales\SalesTransactions\ISalesOrderRepository;
-use App\Domain\Services\Persistence\Warehouses\IWarehousesRepository;
-use App\Domain\Services\Persistence\Warehouses\OutboundLogistics\ICustomerReturnRepository;
-use App\Domain\Services\Persistence\Warehouses\OutboundLogistics\ICustomerShipmentRepository;
-use App\Domain\Services\Persistence\Warehouses\OutboundLogistics\IPickingWorkAreaRepository;
-use App\Domain\Services\Persistence\Warehouses\OutboundLogistics\ISalesOrderFulfillmentRepository;
-use App\Domain\Services\Persistence\Warehouses\ShippingMaintenance\ICarriersAccountsRepository;
-use App\Domain\Services\Persistence\Warehouses\ShippingMaintenance\IShipmentListRepository;
-use App\Domain\Services\Persistence\Warehouses\ShippingMaintenance\IShipmentsRepository;
-use App\Infrastructure\Persistence\Sales\Customers\DbCustomersGroupsRepository;
-use App\Infrastructure\Persistence\Sales\Customers\DbCustomersRepository;
-use App\Infrastructure\Persistence\Sales\Customers\DbSalesRepresentativeRepository;
-use App\Infrastructure\Persistence\Sales\SalesMaintenance\DbBranchesRepository;
-use App\Infrastructure\Persistence\Sales\SalesMaintenance\DbPipelineMetricsRepository;
-use App\Infrastructure\Persistence\Sales\SalesMaintenance\DbTypeofSalesRepository;
-use App\Infrastructure\Persistence\Sales\SalesTransactions\DbQuotationRepository;
-use App\Infrastructure\Persistence\Sales\SalesTransactions\DbSalesOrderRepository;
-use App\Infrastructure\Persistence\Warehouses\DbWarehousesRepository;
-use App\Infrastructure\Persistence\Warehouses\OutboundLogistics\DbCustomerReturnRepository;
-use App\Infrastructure\Persistence\Warehouses\OutboundLogistics\DbCustomerShipmentRepository;
-use App\Infrastructure\Persistence\Warehouses\OutboundLogistics\DbPickingWorkAreaRepository;
-use App\Infrastructure\Persistence\Warehouses\OutboundLogistics\DbSalesOrderFulfillmentRepository;
-use App\Infrastructure\Persistence\Warehouses\ShippingMaintenance\DbCarriersAccountsRepository;
-use App\Infrastructure\Persistence\Warehouses\ShippingMaintenance\DbShipmentListRepository;
-use App\Infrastructure\Persistence\Warehouses\ShippingMaintenance\DbShipmentsRepository;
+use App\Domain\Services\Persistence\Financial\IPaymentTermsRepository;
+use App\Domain\Services\Persistence\Financial\IPurchaseOrderDetailRepository;
+use App\Domain\Services\Persistence\Financial\IPurchaseOrderReceivingRepository;
+use App\Domain\Services\Persistence\Financial\IPurchaseOrderRepository;
+use App\Domain\Services\Persistence\Financial\IReceiptRepository;
+use App\Domain\Services\Persistence\Financial\ISalesInvoiceDetailRepository;
+use App\Domain\Services\Persistence\Financial\ISalesInvoiceRepository;
+use App\Domain\Services\Persistence\Financial\ITaxClassRepository;
+use App\Domain\Services\Persistence\Inventory\ICasePackRepository;
+use App\Domain\Services\Persistence\Inventory\IFamilyRepository;
+use App\Domain\Services\Persistence\Inventory\IGroupRepository;
+use App\Domain\Services\Persistence\Inventory\IUomRepository;
+use App\Domain\Services\Persistence\Sales\IBrandsRepository;
+use App\Domain\Services\Persistence\Sales\ICustomerRepository;
+use App\Domain\Services\Persistence\Sales\IPreferredVendorRepository;
+use App\Domain\Services\Persistence\Sales\IProductRepository;
+use App\Domain\Services\Persistence\Sales\ISalesRepresentativeRepository;
+use App\Domain\Services\Persistence\Warehouse\IShipmentsRepository;
+use App\Domain\Services\Persistence\Warehouse\IWarehouseRepository;
+use App\Infrastructure\Persistence\Financial\DbPaymentTermsRepository;
+use App\Infrastructure\Persistence\Financial\DbPurchaseOrderDetailRepository;
+use App\Infrastructure\Persistence\Financial\DbPurchaseOrderReceivingRepository;
+use App\Infrastructure\Persistence\Financial\DbPurchaseOrderRepository;
+use App\Infrastructure\Persistence\Financial\DbReceiptRepository;
+use App\Infrastructure\Persistence\Financial\DbSalesInvoiceDetailRepository;
+use App\Infrastructure\Persistence\Financial\DbSalesInvoiceRepository;
+use App\Infrastructure\Persistence\Financial\DbTaxClassRepository;
+use App\Infrastructure\Persistence\Inventory\DbCasePackRepository;
+use App\Infrastructure\Persistence\Inventory\DbFamilyRepository;
+use App\Infrastructure\Persistence\Inventory\DbGroupRepository;
+use App\Infrastructure\Persistence\Inventory\DbUomRepository;
+use App\Infrastructure\Persistence\Sales\DbBrandsRepository;
+use App\Infrastructure\Persistence\Sales\DbCustomerRepository;
+use App\Infrastructure\Persistence\Sales\DbPreferredVendorRepository;
+use App\Infrastructure\Persistence\Sales\DbProductRepository;
+use App\Infrastructure\Persistence\Sales\DbSalesRepresentativeRepository;
+use App\Infrastructure\Persistence\Warehouse\DbShipmentsRepository;
+use App\Infrastructure\Persistence\Warehouse\DbWarehouseRepository;
 use Dms\Core\ICms;
 use Dms\Core\Persistence\Db\Mapping\IOrm;
 use Illuminate\Support\ServiceProvider;
@@ -64,28 +70,31 @@ class AppServiceProvider extends ServiceProvider
         /*
          * Entity Related repositories Here
         */
-        /*Warehouses*/
-        $this->app->singleton(IWarehousesRepository::class, DbWarehousesRepository::class);
-            /*ShippingMaintenance*/
-            $this->app->singleton(IShipmentsRepository::class, DbShipmentsRepository::class);
-            $this->app->singleton(ICarriersAccountsRepository::class, DbCarriersAccountsRepository::class);
-            $this->app->singleton(IShipmentListRepository::class, DbShipmentListRepository::class);
-            /*Outbound Logistics*/
-            $this->app->singleton(IPickingWorkAreaRepository::class, DbPickingWorkAreaRepository::class);
-            $this->app->singleton(ICustomerShipmentRepository::class, DbCustomerShipmentRepository::class);
-            $this->app->singleton(ICustomerReturnRepository::class, DbCustomerReturnRepository::class);
-            $this->app->singleton(ISalesOrderFulfillmentRepository::class, DbSalesOrderFulfillmentRepository::class);
-        /*Sales*/
-            /*Customers*/
-            $this->app->singleton(ISalesRepresentativeRepository::class, DbSalesRepresentativeRepository::class);
-            $this->app->singleton(ICustomersGroupsRepository::class, DbCustomersGroupsRepository::class);
-            $this->app->singleton(ICustomersRepository::class, DbCustomersRepository::class);
-            /*SalesMaintenance*/
-            $this->app->singleton(IBranchesRepository::class, DbBranchesRepository::class);
-            $this->app->singleton(IPipelineMetricsRepository::class, DbPipelineMetricsRepository::class);
-            $this->app->singleton(ITypeofSalesRepository::class, DbTypeofSalesRepository::class);
-            /*SalesTransactions*/
-            $this->app->singleton(IQuotationRepository::class, DbQuotationRepository::class);
-            $this->app->singleton(ISalesOrderRepository::class, DbSalesOrderRepository::class);
+        /*FINANCIAL*/
+         $this->app->singleton(IPaymentTermsRepository::class, DbPaymentTermsRepository::class);
+         $this->app->singleton(ITaxClassRepository::class, DbTaxClassRepository::class);
+         $this->app->singleton(IPurchaseOrderRepository::class, DbPurchaseOrderRepository::class);
+         $this->app->singleton(IPurchaseOrderDetailRepository::class, DbPurchaseOrderDetailRepository::class);
+         $this->app->singleton(IPurchaseOrderReceivingRepository::class, DbPurchaseOrderReceivingRepository::class);
+         $this->app->singleton(IReceiptRepository::class, DbReceiptRepository::class);
+         $this->app->singleton(ISalesInvoiceRepository::class, DbSalesInvoiceRepository::class);
+         $this->app->singleton(ISalesInvoiceDetailRepository::class, DbSalesInvoiceDetailRepository::class);
+
+         /*SALES*/
+         $this->app->singleton(ISalesRepresentativeRepository::class, DbSalesRepresentativeRepository::class);
+         $this->app->singleton(ICustomerRepository::class, DbCustomerRepository::class);
+         $this->app->singleton(IBrandsRepository::class, DbBrandsRepository::class);
+         $this->app->singleton(IPreferredVendorRepository::class, DbPreferredVendorRepository::class);
+         $this->app->singleton(IProductRepository::class, DbProductRepository::class);
+         /*INVENTORY*/
+         $this->app->singleton(ICasePackRepository::class, DbCasePackRepository::class);
+         $this->app->singleton(IFamilyRepository::class, DbFamilyRepository::class);
+         $this->app->singleton(IGroupRepository::class, DbGroupRepository::class);
+         $this->app->singleton(IUomRepository::class, DbUomRepository::class);
+         /*WAREHOUSE*/
+         $this->app->singleton(IShipmentsRepository::class, DbShipmentsRepository::class);
+         $this->app->singleton(IWarehouseRepository::class, DbWarehouseRepository::class);
+
     }
+
 }

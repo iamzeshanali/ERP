@@ -1,13 +1,11 @@
 <?php declare(strict_types = 1);
 
 namespace App;
-
-use App\Cms\CustomersPackage;
-use App\Cms\OutboundLogisticsPackage;
+use App\Cms\FinancialPackage;
+use App\Cms\InventoryPackage;
+use App\Cms\ProductPackage;
 use App\Cms\SalesPackage;
-use App\Cms\SalesTransactionPackage;
-use App\Cms\ShippingMaintenancePackage;
-use App\Cms\WarehousesPackage;
+use App\Cms\WarehousePackage;
 use Dms\Core\Cms;
 use Dms\Core\CmsDefinition;
 use Dms\Web\Laravel\Auth\AdminPackage;
@@ -34,12 +32,13 @@ class AppCms extends Cms
             'analytics' => AnalyticsPackage::class,
 
            // TODO: Register your application cms packages...
-            'Customers' => CustomersPackage::class,
-            'warehouses' => WarehousesPackage::class,
-            'Customers'=>CustomersPackage::class,
-            'SalesTransaction' => SalesTransactionPackage::class,
-            'ShippingMaintenance' => ShippingMaintenancePackage::class,
-            'OutboundLogistics' => OutboundLogisticsPackage::class
+            'Financial' => FinancialPackage::class,
+            'Inventory' => InventoryPackage::class,
+            'Sales'     => SalesPackage::class,
+            'Product'   => ProductPackage::class,
+            'Warehouse' => WarehousePackage::class,
+
+
         ]);
     }
 }
