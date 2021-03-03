@@ -36,27 +36,27 @@ class Customers extends Controller
         foreach ($customers as $customer) {
             $formattedData[] = [
                 'Name' => $customer->customerName,
-                'customerNumber' => $customer->customerNumber,
-                'customerStatus' => $customer->customerStatus->getValue(),
+                'customer Number' => $customer->customerNumber,
+                'customer Status' => $customer->customerStatus->getValue(),
                 'email' => $customer->email->asString(),
-                'salesRepresentative' => $customer->salesRepresentative->name,
-                'addressLine1' => $customer->addressLine1,
-                'addressLine2' => $customer->addressLine2,
+                'sales Representative' => $customer->salesRepresentative->name,
+                'address Line1' => $customer->addressLine1,
+                'address Line2' => $customer->addressLine2,
                 'state' => $customer->state,
                 'city' => $customer->city,
                 'zip' => $customer->zip,
                 'country' => $customer->country,
                 'isShippingSame' => $customer->isShippingSame,
-                'shippingAddressLine1' => $customer->shippingAddressLine1,
-                'shippingAddressLine2' => $customer->shippingAddressLine2,
-                'shippingState' => $customer->shippingState,
-                'shippingCity' => $customer->shippingCity,
-                'shippingZip' => $customer->shippingZip,
-                'shippingCountry' => $customer->shippingCountry,
+                'shipping AddressLine1' => $customer->shippingAddressLine1,
+                'shipping AddressLine2' => $customer->shippingAddressLine2,
+                'shipping State' => $customer->shippingState,
+                'shipping City' => $customer->shippingCity,
+                'shipping Zip' => $customer->shippingZip,
+                'shipping Country' => $customer->shippingCountry,
                 'phone' => $customer->phone,
-                'bevLicenceNumber' => $customer->bevLicenceNumber,
-                'paymentTerms' => $customer->paymentTerms->code,
-                'numberOfPallets' => $customer->numberOfPallets
+                'bevLicence Number' => $customer->bevLicenceNumber,
+                'payment Terms' => $customer->paymentTerms->code,
+                'number Of Pallets' => $customer->numberOfPallets
             ];
         }
         return response()->json($formattedData);
